@@ -1,27 +1,24 @@
-import { Html, Head, Main, NextScript } from 'next/document'
- 
+import { Html, Head, Main, NextScript } from 'next/document';
+
 export default function Document() {
   return (
     <Html lang="en">
-      <Head> 
+      <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com/" />
         <link rel="preconnect" href="https://fonts.gstatic.com/" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap" rel="stylesheet" />
       </Head>
-      <body style={{
-            margin: 0,
-            backgroundColor: '#88f',
-            fontFamily: 'Montserrat',
-            color: 'white',
-
-        
-        }}> 
+      <body
+        style={{
+          margin: 0,
+          backgroundColor: '#88f',
+          fontFamily: 'Montserrat',
+          color: 'white',
+        }}
+      >
         <Main />
         <NextScript />
       </body>
     </Html>
-  )
+  );
 }

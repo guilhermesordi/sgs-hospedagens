@@ -15,7 +15,7 @@ const Form = styled.form`
   align-items: center;
   gap: 10px;
   width: 100%;
-  
+
   button {
     all: unset;
     height: 40px;
@@ -48,15 +48,13 @@ const ItemContainer = styled.div`
     border-radius: 20px;
   }
 
-  label{
+  label {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-
 `;
-
 
 export default function AddCustomerPage() {
   const [customer, setCustomer] = useState<string>('');

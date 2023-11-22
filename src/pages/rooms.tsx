@@ -4,11 +4,11 @@ import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
-    background-color: #66d;
-    display: flex; 
-    flex-direction: column;
-    padding: 15px;
-    border-radius: 25px;
+  background-color: #66d;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-radius: 25px;
 `;
 
 type Room = {
@@ -46,7 +46,7 @@ export default function AddRoomPage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '50px', marginTop: '10px' }}>
         {listData.length > 0
           ? listData.map((room) => (
-              <Card key={room.number} >
+              <Card key={room.number}>
                 <span>
                   {room.number} - {room.description} - N° banheiros: {room.num_bathrooms} - Lotação: {room.capacity}
                 </span>

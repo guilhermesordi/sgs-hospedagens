@@ -6,10 +6,10 @@ const HeaderContainer = styled.div`
   gap: 10px;
   padding: 30px;
 
-  a{
+  a {
     text-decoration: none;
     color: white;
-    &:hover{
+    &:hover {
       color: lightblue;
     }
   }
