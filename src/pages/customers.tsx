@@ -5,11 +5,11 @@ import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Card = styled.div`
-    background-color: #66d;
-    display: flex; 
-    flex-direction: column;
-    padding: 15px;
-    border-radius: 25px;
+  background-color: #66d;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-radius: 25px;
 `;
 
 export type Customer = {
