@@ -3,6 +3,15 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
+
+const Card = styled.div`
+    background-color: #66d;
+    display: flex; 
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 25px;
+`;
 
 export type Staff = {
   id: string;
@@ -55,7 +64,7 @@ export default function StaffPage() {
           ? listData.map(
               (staff) =>
                 staff.roles.indexOf('MASTER') === -1 && (
-                  <div key={staff.id} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <Card key={staff.id} >
                     <span>
                       <strong>Nome:</strong> {staff.name}
                       <button style={{ marginLeft: '10px' }} onClick={() => handleEditUser(staff)}>
@@ -68,7 +77,7 @@ export default function StaffPage() {
                     <span>
                       <strong>Ativo:</strong> {staff.active ? 'Sim' : 'Não'}
                     </span>
-                  </div>
+                  </Card>
                 ),
             )
           : 'Nenhum staff encontrado'}

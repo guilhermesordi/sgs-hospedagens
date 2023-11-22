@@ -22,16 +22,41 @@ const Form = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: #ddd;
+    color: lightblue;
+    background-color: #66d;
 
     &:hover {
-      background-color: #ccc;
+      background-color: #55c;
     }
   }
 `;
 
 const ItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  font-size: 20px;
+
+  input {
+    all: unset;
+    width: 500px;
+    height: 40px;
+    font-size: 16px;
+    background-color: lightblue;
+    padding: 5px 10px;
+    border-radius: 20px;
+  }
+
+  label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+`;
+
+const ItemContainerCheck = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -95,10 +120,10 @@ export default function EditStaffPage() {
           <label htmlFor="password">Senha</label>
           <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </ItemContainer>
-        <ItemContainer>
+        <ItemContainerCheck>
           <label htmlFor="active">Ativo</label>
           <input type="checkbox" name="active" checked={active} onChange={(e) => setActive(e.target.checked)} />
-        </ItemContainer>
+        </ItemContainerCheck>
         <button type="submit">Enviar</button>
       </Form>
     </MasterGuard>

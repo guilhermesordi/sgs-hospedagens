@@ -22,11 +22,11 @@ const Form = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: #ddd;
+    color: lightblue;
+    background-color: #66d;
 
     &:hover {
-      background-color: #ccc;
+      background-color: #55c;
     }
   }
 `;
@@ -38,10 +38,22 @@ const ItemContainer = styled.div`
   font-size: 20px;
 
   input {
+    all: unset;
     width: 500px;
     height: 40px;
     font-size: 16px;
+    background-color: lightblue;
+    padding: 5px 10px;
+    border-radius: 20px;
   }
+
+  label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
 `;
 
 export default function AddStaffPage() {
