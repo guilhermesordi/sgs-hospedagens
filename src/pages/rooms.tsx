@@ -1,6 +1,15 @@
 import { ReturnTo, Header } from '@/components';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+const Card = styled.div`
+    background-color: #66d;
+    display: flex; 
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 25px;
+`;
 
 type Room = {
   number: number;
@@ -37,7 +46,7 @@ export default function AddRoomPage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '50px', marginTop: '10px' }}>
         {listData.length > 0
           ? listData.map((room) => (
-              <div key={room.number} style={{ display: 'flex', flexDirection: 'column' }}>
+              <Card key={room.number} >
                 <span>
                   {room.number} - {room.description} - N° banheiros: {room.num_bathrooms} - Lotação: {room.capacity}
                 </span>
@@ -46,7 +55,7 @@ export default function AddRoomPage() {
                   {getRoomIcon(room.jacuzzi)}
                 </span>
                 <span>{room.price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span>
-              </div>
+              </Card>
             ))
           : 'Nenhum quarto encontrado'}
       </div>

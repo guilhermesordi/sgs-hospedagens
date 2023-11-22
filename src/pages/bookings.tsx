@@ -2,6 +2,15 @@ import { ReturnTo, Header } from '@/components';
 import axios from 'axios';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+const Card = styled.div`
+    background-color: #66d;
+    display: flex; 
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 25px;
+`;
 
 export type Booking = {
   id: number;
@@ -58,7 +67,7 @@ export default function CustomersPage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '35px', marginTop: '10px' }}>
         {listData.length > 0
           ? listData.map((booking) => (
-              <div key={booking.id} style={{ display: 'flex', flexDirection: 'column' }}>
+              <Card  key={booking.id}>
                 <span>
                   <strong>Cliente:</strong> {booking.customer}
                 </span>
@@ -83,7 +92,7 @@ export default function CustomersPage() {
                   <strong>Valor total:</strong>{' '}
                   {booking.total_amount.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
                 </span>
-              </div>
+              </Card>
             ))
           : 'Nenhum agendamento encontrado'}
       </div>

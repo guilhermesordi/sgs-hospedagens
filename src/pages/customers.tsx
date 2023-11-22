@@ -2,6 +2,15 @@ import { ReturnTo, Header } from '@/components';
 import axios from 'axios';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+const Card = styled.div`
+    background-color: #66d;
+    display: flex; 
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 25px;
+`;
 
 export type Customer = {
   id: string;
@@ -37,7 +46,7 @@ export default function CustomersPage() {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '35px', marginTop: '10px' }}>
         {listData.length > 0
           ? listData.map((customer) => (
-              <div key={customer.id} style={{ display: 'flex', flexDirection: 'column' }}>
+              <Card key={customer.id}>
                 <span>
                   <strong>CPF:</strong> {customer.id}
                 </span>
@@ -53,7 +62,7 @@ export default function CustomersPage() {
                 <span>
                   <strong>Celular:</strong> {customer.cellphone}
                 </span>
-              </div>
+              </Card>
             ))
           : 'Nenhum cliente encontrado'}
       </div>

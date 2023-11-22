@@ -4,6 +4,15 @@ const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
+  padding: 30px;
+
+  a{
+    text-decoration: none;
+    color: white;
+    &:hover{
+      color: lightblue;
+    }
+  }
 
   > :not(:last-child)::after {
     content: '|';
