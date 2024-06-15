@@ -2,6 +2,7 @@ import { Button, Card, Header, HeroLayout, Table } from '@/components';
 import { Routes } from '@/constants';
 import { format } from 'date-fns';
 import { StatusChip } from './StatusChip';
+import { useRouter } from 'next/router';
 
 export const BookingsPage = () => {
   const mockTable = [
@@ -61,6 +62,8 @@ export const BookingsPage = () => {
     },
   ];
 
+  const router = useRouter();
+
   return (
     <HeroLayout>
       <Header.Root>
@@ -69,7 +72,7 @@ export const BookingsPage = () => {
       </Header.Root>
       <div className="w-full flex flex-col gap-5">
         <div className="w-full flex justify-end">
-          <Button>Cadastrar Novo</Button>
+          <Button onClick={() => router.push(Routes.AddBooking)}>Cadastrar Novo</Button>
         </div>
         <Card>
           <Table.Root>

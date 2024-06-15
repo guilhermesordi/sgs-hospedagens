@@ -4,6 +4,7 @@ export * from './BookingsPage';
 export * from './CustomersPage';
 export * from './RoomsPage';
 export * from './StaffPage';
+export * from './AddBookingPage';
 
 export * from './Input';
 export * from './Button';
