@@ -29,7 +29,7 @@ const Item = ({ icon, label, to }: ItemProps) => {
 
 export const Sidebar = () => {
   return (
-    <div className="w-[280px] h-full px-[25px] pt-[50px] pb-[25px] left-0 top-0 absolute bg-dark flex-col justify-start items-center gap-10 inline-flex">
+    <div className="w-[280px] h-full px-[25px] pt-[50px] pb-[25px] left-0 top-0 fixed bg-dark flex-col justify-start items-center gap-10 inline-flex">
       <Image width={105} height={86} src="/images/logo-100x100.png" alt="" />
       <div className="flex-col justify-start items-start gap-[25px] flex">
         <div className="flex-col justify-start items-start gap-1.5 flex">
