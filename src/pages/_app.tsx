@@ -1,19 +1,36 @@
+import '@/styles/globals.css';
 import { AppProps } from 'next/app';
 import styled from 'styled-components';
+import { Roboto } from 'next/font/google';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { Routes } from '@/constants';
+
+const roboto = Roboto({
+  weight: ['400', '500', '700', '900'],
+  subsets: ['latin'],
+});
 
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: large;
-  border-radius: 10px;
 `;
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.pathname === '/_error') router.push(Routes.Login);
+  }, [router]);
+
   return (
-    <Container>
-      <Component {...pageProps} />
-    </Container>
+    <main className={roboto.className}>
+      <Head>
+        <title>SGS Hospedagens</title>
+      </Head>
+      <Container>
+        <Component {...pageProps} />
+      </Container>
+    </main>
   );
 }

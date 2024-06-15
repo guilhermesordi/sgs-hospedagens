@@ -4,18 +4,10 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com/" />
-        <link rel="preconnect" href="https://fonts.gstatic.com/" />
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap" rel="stylesheet" />
+        <link rel="icon" href="/favicon.ico" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"></link>
       </Head>
-      <body
-        style={{
-          margin: 0,
-          backgroundColor: '#88f',
-          fontFamily: 'Montserrat',
-          color: 'white',
-        }}
-      >
+      <body className="m-0">
         <Main />
         <NextScript />
       </body>

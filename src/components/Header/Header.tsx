@@ -1,27 +1,34 @@
-import styled from 'styled-components';
+import Link from 'next/link';
 
-const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  padding: 30px;
+type RootProps = React.PropsWithChildren<{}>;
+type TitleProps = React.PropsWithChildren<{}>;
+type BreadcrumbsProps = {
+  parent: string;
+  parentRoute: string;
+  page: string;
+};
 
-  a {
-    text-decoration: none;
-    color: white;
-    &:hover {
-      color: lightblue;
-    }
-  }
+const Root = ({ children }: RootProps) => {
+  return <div className="w-full justify-between items-center inline-flex">{children}</div>;
+};
 
-  > :not(:last-child)::after {
-    content: '|';
-    margin-left: 10px;
-  }
-`;
+const Title = ({ children }: TitleProps) => {
+  return <div className="text-gray-800 text-[26px] font-bold leading-[30px]">{children}</div>;
+};
 
-type HeaderProps = React.PropsWithChildren<{}>;
+const Breadcrumbs = ({ parent, parentRoute, page }: BreadcrumbsProps) => {
+  return (
+    <div className="h-6 justify-start items-start gap-2 inline-flex">
+      <Link href={parentRoute} className="text-right text-txtcolor text-base font-medium leading-normal">
+        {parent} /
+      </Link>
+      <span className="text-right text-primary text-base font-medium leading-normal cursor-default">{page}</span>
+    </div>
+  );
+};
 
-export const Header = ({ children }: HeaderProps) => {
-  return <HeaderContainer>{children}</HeaderContainer>;
+export const Header = {
+  Root,
+  Title,
+  Breadcrumbs,
 };
