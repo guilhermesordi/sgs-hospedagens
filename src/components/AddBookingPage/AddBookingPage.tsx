@@ -1,7 +1,49 @@
 import { Button, Card, Header, HeroLayout, Input } from '@/components';
+import { keepOnlyNumbers, maskCpf, maskCurrency } from '@/utils';
 import { Routes } from '@/constants';
+import { isValid } from 'date-fns';
+import { useRouter } from 'next/router';
+import { useCallback, useState } from 'react';
 
 export const AddBookingPage = () => {
+  const router = useRouter();
+
+  const [customer, setCustomer] = useState('');
+  const [room, setRoom] = useState('');
+  const [numPeople, setNumPeople] = useState('');
+  const [totalAmount, setTotalAmount] = useState('');
+  const [checkinDate, setCheckinDate] = useState('');
+  const [checkoutDate, setCheckoutDate] = useState('');
+
+  const getIsValid = useCallback(() => {
+    let numInvalid = 6;
+
+    if (customer.trim().length === 14) {
+      numInvalid--;
+    }
+    if (room.trim().length > 0) {
+      numInvalid--;
+    }
+    if (numPeople.trim().length > 0) {
+      numInvalid--;
+    }
+    if (+keepOnlyNumbers(totalAmount) / 100 > 0) {
+      numInvalid--;
+    }
+    if (isValid(new Date(checkinDate))) {
+      numInvalid--;
+    }
+    if (isValid(new Date(checkoutDate))) {
+      numInvalid--;
+    }
+
+    return numInvalid === 0;
+  }, [checkinDate, checkoutDate, customer, numPeople, room, totalAmount]);
+
+  const handleSubmit = useCallback(() => {
+    router.push(Routes.Bookings);
+  }, [router]);
+
   return (
     <HeroLayout>
       <Header.Root>
@@ -15,19 +57,44 @@ export const AddBookingPage = () => {
         <div className="px-[50px] py-[45px]">
           <div className="w-full h-[395px] flex-col justify-start items-start gap-[30px] inline-flex">
             <div className="w-full justify-start items-start gap-5 inline-flex">
-              <Input label="Cliente" placeholder="Ex: 111.111.111-11" />
-              <Input label="Quarto" placeholder="Ex: 201" />
+              <Input
+                label="Cliente"
+                placeholder="Ex: 111.111.111-11"
+                value={customer}
+                onChange={setCustomer}
+                mask={maskCpf}
+              />
+              <Input label="Quarto" placeholder="Ex: 201" value={room} onChange={setRoom} mask={keepOnlyNumbers} />
             </div>
             <div className="w-full justify-start items-start gap-5 inline-flex">
-              <Input label="N° Pessoas" placeholder="Ex: 3" />
-              <Input label="Valor total" placeholder="Ex: R$ 1280,05" />
+              <Input
+                label="N° Pessoas"
+                placeholder="Ex: 3"
+                value={numPeople}
+                onChange={setNumPeople}
+                mask={keepOnlyNumbers}
+              />
+              <Input
+                label="Valor total"
+                placeholder="Ex: R$ 1280,05"
+                value={totalAmount}
+                onChange={setTotalAmount}
+                mask={maskCurrency}
+              />
             </div>
             <div className="w-full justify-start items-start gap-5 inline-flex">
-              <Input label="Data de checkin" type="date" />
-              <Input label="Data de checkout" type="date" />
+              <Input label="Data de checkin" type="date" value={checkinDate} onChange={setCheckinDate} />
+              <Input label="Data de checkout" type="date" value={checkoutDate} onChange={setCheckoutDate} />
             </div>
             <div className="self-stretch justify-end items-center gap-2.5 inline-flex">
-              <Button size="sm">Enviar</Button>
+              <Button
+                onClick={handleSubmit}
+                size="sm"
+                disabled={!getIsValid()}
+                title="Preencha todos os campos corretamente antes de enviar!"
+              >
+                Enviar
+              </Button>
             </div>
           </div>
         </div>

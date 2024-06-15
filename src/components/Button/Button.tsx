@@ -2,9 +2,10 @@ type ButtonProps = React.PropsWithChildren<{
   onClick?: () => void;
   disabled?: boolean;
   size?: 'fill' | 'md' | 'sm' | 'xs';
+  title?: string;
 }>;
 
-export const Button = ({ children, disabled, size = 'md', onClick }: ButtonProps) => {
+export const Button = ({ children, disabled, size = 'md', title, onClick }: ButtonProps) => {
   const getSize = () => {
     switch (size) {
       case 'fill':
@@ -22,7 +23,8 @@ export const Button = ({ children, disabled, size = 'md', onClick }: ButtonProps
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`${getSize()} h-[50px] py-[15px] bg-primary rounded justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal`}
+      title={disabled ? title : undefined}
+      className={`${getSize()} h-[50px] py-[15px] bg-primary disabled:bg-primary/50 disabled:cursor-not-allowed rounded justify-center items-center gap-2.5 inline-flex text-center text-white text-base font-medium leading-normal`}
     >
       {children}
     </button>
