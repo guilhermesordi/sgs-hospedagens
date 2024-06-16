@@ -1,3 +1,5 @@
-export default function AddCustomerPage() {
-  return <></>;
+import { AddCustomerPage } from '@/components';
+
+export default function AddCustomer() {
+  return <AddCustomerPage />;
 }
