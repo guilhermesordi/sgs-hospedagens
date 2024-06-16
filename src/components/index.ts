@@ -6,6 +6,8 @@ export * from './RoomsPage';
 export * from './StaffPage';
 export * from './AddBookingPage';
 export * from './AddCustomerPage';
+export * from './AddStaffPage';
+export * from './EditStaffPage';
 
 export * from './Input';
 export * from './Button';

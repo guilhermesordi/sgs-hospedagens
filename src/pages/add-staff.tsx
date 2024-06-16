@@ -1,3 +1,5 @@
-export default function AddStaffPage() {
-  return <></>;
+import { AddStaffPage } from '@/components';
+
+export default function AddStaff() {
+  return <AddStaffPage />;
 }

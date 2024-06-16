@@ -7,4 +7,6 @@ export enum Routes {
   Staff = '/staff',
   AddBooking = '/add-booking',
   AddCustomer = '/add-customer',
+  AddStaff = '/add-staff',
+  EditStaff = '/edit-staff',
 }
