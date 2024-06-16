@@ -37,7 +37,9 @@ export const LoginPage = () => {
             onChange={setPassword}
             type="password"
           />
-          <Button onClick={handleSubmit}>Acessar</Button>
+          <Button onClick={handleSubmit} size="fill">
+            Acessar
+          </Button>
         </div>
       </div>
     </S.Container>

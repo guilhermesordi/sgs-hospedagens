@@ -1,3 +1,5 @@
-export default function EditStaffPage() {
-  return <></>;
+import { EditStaffPage } from '@/components';
+
+export default function EditStaff() {
+  return <EditStaffPage />;
 }

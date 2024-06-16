@@ -7,12 +7,13 @@ type ItemProps = {
   icon: string;
   label: string;
   to: string;
+  activates: string[];
 };
 
-const Item = ({ icon, label, to }: ItemProps) => {
+const Item = ({ icon, label, to, activates }: ItemProps) => {
   const router = useRouter();
 
-  const isCurrent = router.pathname === to;
+  const isCurrent = activates.includes(router.pathname);
 
   return (
     <Link
@@ -29,19 +30,34 @@ const Item = ({ icon, label, to }: ItemProps) => {
 
 export const Sidebar = () => {
   return (
-    <div className="w-[280px] h-full px-[25px] pt-[50px] pb-[25px] left-0 top-0 absolute bg-dark flex-col justify-start items-center gap-10 inline-flex">
+    <div className="w-[280px] h-full px-[25px] pt-[50px] pb-[25px] left-0 top-0 fixed bg-dark flex-col justify-start items-center gap-10 inline-flex">
       <Image width={105} height={86} src="/images/logo-100x100.png" alt="" />
       <div className="flex-col justify-start items-start gap-[25px] flex">
         <div className="flex-col justify-start items-start gap-1.5 flex">
-          <Item icon={'dashboard'} label={'Dashboard'} to={Routes.Dashboard} />
-          <Item icon={'bookmark'} label={'Agendamentos'} to={Routes.Bookings} />
-          <Item icon={'person'} label={'Clientes'} to={Routes.Customers} />
-          <Item icon={'door_front'} label={'Quartos'} to={Routes.Rooms} />
-          <Item icon={'admin_panel_settings'} label={'Staff'} to={Routes.Staff} />
+          <Item icon={'dashboard'} label={'Dashboard'} to={Routes.Dashboard} activates={[Routes.Dashboard]} />
+          <Item
+            icon={'bookmark'}
+            label={'Agendamentos'}
+            to={Routes.Bookings}
+            activates={[Routes.Bookings, Routes.AddBooking]}
+          />
+          <Item
+            icon={'person'}
+            label={'Clientes'}
+            to={Routes.Customers}
+            activates={[Routes.Customers, Routes.AddCustomer]}
+          />
+          <Item icon={'door_front'} label={'Quartos'} to={Routes.Rooms} activates={[Routes.Rooms]} />
+          <Item
+            icon={'admin_panel_settings'}
+            label={'Staff'}
+            to={Routes.Staff}
+            activates={[Routes.Staff, Routes.AddStaff, Routes.EditStaff]}
+          />
         </div>
       </div>
       <button onClick={() => sessionStorage.clear()}>
-        <Item icon={'logout'} label={'Sair'} to={Routes.Login} />
+        <Item icon={'logout'} label={'Sair'} to={Routes.Login} activates={[Routes.Login]} />
       </button>
     </div>
   );
