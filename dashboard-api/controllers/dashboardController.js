@@ -1,27 +1,46 @@
-const fs = require('fs');
-const path = require('path');
-const dataPath = path.join(__dirname, '../data/database.json');
+const { db } = require('../db');
 
-const getDashboardData = (req, res) => {
-  const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+const getDashboardData = async (req, res) => {
+  let staffData = [];
+  let roomsData = [];
+  let bookingsData = [];
+  let customersData = [];
+  let totalRevenue = 0;
 
-  const totalStaff = data.staff.length;
-  const totalRooms = data.rooms.length;
-  const totalBookings = data.bookings.length;
-  const totalCustomers = data.customers.length;
+  await db.manyOrNone('SELECT * FROM staff').then((data) => {
+    staffData = data;
+  });
+  await db.manyOrNone('SELECT * FROM rooms').then((data) => {
+    roomsData = data;
+  });
+  await db.manyOrNone('SELECT * FROM bookings').then((data) => {
+    bookingsData = data;
+  });
+  await db.manyOrNone('SELECT * FROM customers').then((data) => {
+    customersData = data;
+  });
+  await db.manyOrNone('SELECT sum(total_amount) FROM bookings').then((data) => {
+    totalRevenue = data[0].sum;
+  });
+
+  const totalStaff = staffData.length;
+  const totalRooms = roomsData.length;
+  const totalBookings = bookingsData.length;
+  const totalCustomers = customersData.length;
 
   const dashboardData = {
     totalStaff,
     totalRooms,
     totalBookings,
     totalCustomers,
-    recentBookings: data.bookings.slice(-5),
-    recentCustomers: data.customers.slice(-5)
+    totalRevenue,
+    recentBookings: bookingsData.slice(-5),
+    recentCustomers: customersData.slice(-5),
   };
 
   res.json(dashboardData);
 };
 
 module.exports = {
-  getDashboardData
+  getDashboardData,
 };

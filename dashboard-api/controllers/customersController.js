@@ -1,21 +1,34 @@
-const fs = require('fs');
-const path = require('path');
-const dataPath = path.join(__dirname, '../data/database.json');
+const { db } = require('../db');
 
 const getAllCustomers = (req, res) => {
-  const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  res.json(data.customers);
+  db.manyOrNone('SELECT * FROM customers')
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
 };
 
 const createCustomer = (req, res) => {
   const newCustomer = req.body;
-  const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  data.customers.push(newCustomer);
-  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
-  res.status(201).json(newCustomer);
+
+  db.none('INSERT INTO customers(id, name, date_of_birth, email, cellphone) VALUES($1, $2, $3, $4, $5)', [
+    newCustomer.id,
+    newCustomer.name,
+    newCustomer.dateOfBirth,
+    newCustomer.email,
+    newCustomer.cellphone,
+  ])
+    .then((data) => {
+      res.status(201).json({ ...newCustomer });
+    })
+    .catch((error) => {
+      res.status(422).json(error);
+    });
 };
 
 module.exports = {
   getAllCustomers,
-  createCustomer
+  createCustomer,
 };

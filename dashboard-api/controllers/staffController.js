@@ -1,37 +1,55 @@
-const fs = require('fs');
-const path = require('path');
-const dataPath = path.join(__dirname, '../data/database.json');
+const { db } = require('../db');
 
 const getAllStaff = (req, res) => {
-  const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  res.json(data.staff);
+  db.manyOrNone('SELECT * FROM staff')
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      res.json(error);
+    });
 };
 
 const createStaff = (req, res) => {
   const newStaff = req.body;
-  const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  data.staff.push(newStaff);
-  fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
-  res.status(201).json(newStaff);
+
+  db.none('INSERT INTO staff(name, username, password, active, roles) VALUES($1, $2, $3, $4, $5)', [
+    newStaff.name,
+    newStaff.username,
+    newStaff.password,
+    true,
+    ['ADMIN'],
+  ])
+    .then((data) => {
+      res.status(201).json({ ...newStaff, active: true, roles: ['ADMIN'] });
+    })
+    .catch((error) => {
+      res.status(422).json(error);
+    });
 };
 
 const updateStaff = (req, res) => {
   const { id } = req.params;
   const updatedStaff = req.body;
-  const data = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-  const staffIndex = data.staff.findIndex(staff => staff.id === id);
 
-  if (staffIndex !== -1) {
-    data.staff[staffIndex] = { ...data.staff[staffIndex], ...updatedStaff };
-    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
-    res.status(200).json(data.staff[staffIndex]);
-  } else {
-    res.status(404).json({ message: 'Staff not found' });
-  }
+  db.none('UPDATE staff SET update_tmz = $1, name = $2, username = $3, password = $4, active = $5 WHERE id = $6', [
+    new Date().toISOString(),
+    updatedStaff.name,
+    updatedStaff.username,
+    updatedStaff.password,
+    updatedStaff.active,
+    id,
+  ])
+    .then((data) => {
+      res.status(201).json({ ...updatedStaff });
+    })
+    .catch((error) => {
+      res.status(422).json(error);
+    });
 };
 
 module.exports = {
   getAllStaff,
   createStaff,
-  updateStaff
+  updateStaff,
 };
