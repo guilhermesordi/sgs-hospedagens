@@ -1,0 +1,227 @@
+{
+  "staff": [
+    {
+      "roles": [
+        "ADMIN",
+        "MASTER"
+      ],
+      "name": "Central",
+      "username": "admin@central.com",
+      "password": "e7d80ffeefa212b7c5c55700e4f7193e",
+      "active": true,
+      "create_tmz": "2023-11-22T03:05:33.424Z",
+      "update_tmz": "2023-11-22T03:05:33.424Z",
+      "id": "r9ZwsoS"
+    },
+    {
+      "roles": [
+        "ADMIN"
+      ],
+      "name": "Theo Nicolas Duarte",
+      "username": "theo_nicolas@central.com",
+      "password": "e7d80ffeefa212b7c5c55700e4f7193e",
+      "active": true,
+      "create_tmz": "2023-11-22T03:09:46.427Z",
+      "update_tmz": "2023-11-22T03:37:08.454Z",
+      "id": "UxX2EDd"
+    }
+  ],
+  "rooms": [
+    {
+      "number": 1,
+      "description": "Quarto de Apolo",
+      "capacity": 5,
+      "ac": true,
+      "wifi": true,
+      "num_bathrooms": 3,
+      "jacuzzi": true,
+      "price": 200
+    },
+    {
+      "number": 2,
+      "description": "Quarto de Artemis",
+      "capacity": 4,
+      "ac": true,
+      "wifi": true,
+      "num_bathrooms": 2,
+      "jacuzzi": false,
+      "price": 150
+    },
+    {
+      "number": 3,
+      "description": "Quarto de Athena",
+      "capacity": 8,
+      "ac": false,
+      "wifi": true,
+      "num_bathrooms": 4,
+      "jacuzzi": true,
+      "price": 300
+    },
+    {
+      "number": 4,
+      "description": "Quarto de Hermes",
+      "capacity": 6,
+      "ac": true,
+      "wifi": true,
+      "num_bathrooms": 2,
+      "jacuzzi": false,
+      "price": 250
+    },
+    {
+      "number": 5,
+      "description": "Quarto de Hades",
+      "capacity": 2,
+      "ac": false,
+      "wifi": true,
+      "num_bathrooms": 1,
+      "jacuzzi": false,
+      "price": 100
+    }
+  ],
+  "bookings": [
+    {
+      "id": 1,
+      "customer": "123.456.789-01",
+      "room": 2,
+      "num_people": 2,
+      "checkin_date": "2023-01-15",
+      "checkout_date": "2023-01-20",
+      "created_tmz": "2023-01-10T08:00:00",
+      "updated_tmz": "2023-01-10T08:00:00",
+      "status": "COMPLETE",
+      "total_amount": 900
+    },
+    {
+      "id": 2,
+      "customer": "789.012.345-10",
+      "room": 3,
+      "num_people": 7,
+      "checkin_date": "2023-02-10",
+      "checkout_date": "2023-02-20",
+      "created_tmz": "2023-02-05T10:30:00",
+      "updated_tmz": "2023-02-05T10:30:00",
+      "status": "COMPLETE",
+      "total_amount": 3300
+    },
+    {
+      "id": 3,
+      "customer": "567.890.123-08",
+      "room": 1,
+      "num_people": 2,
+      "checkin_date": "2023-03-23",
+      "checkout_date": "2023-03-25",
+      "created_tmz": "2023-03-23T15:45:00",
+      "updated_tmz": "2023-03-23T15:45:00",
+      "status": "ONGOING",
+      "total_amount": 400
+    },
+    {
+      "id": 4,
+      "customer": "321.098.765-04",
+      "room": 1,
+      "num_people": 3,
+      "checkin_date": "2023-04-12",
+      "checkout_date": "2023-04-18",
+      "created_tmz": "2023-04-07T12:20:00",
+      "updated_tmz": "2023-04-07T12:20:00",
+      "status": "PENDING",
+      "total_amount": 1200
+    },
+    {
+      "id": 5,
+      "customer": "456.789.012-03",
+      "room": 5,
+      "num_people": 1,
+      "checkin_date": "2023-05-23",
+      "checkout_date": "2023-05-27",
+      "created_tmz": "2023-04-30T09:15:00",
+      "updated_tmz": "2023-04-30T09:15:00",
+      "status": "PENDING",
+      "total_amount": 400
+    },
+    {
+      "customer": "100.000.000-11",
+      "room": 1,
+      "num_people": 2,
+      "checkin_date": "2023-11-21",
+      "checkout_date": "2023-11-30",
+      "created_tmz": "2023-11-22T02:05:29.342Z",
+      "updated_tmz": "2023-11-22T02:37:10.997Z",
+      "status": "PENDING",
+      "total_amount": 1000,
+      "id": 6
+    }
+  ],
+  "customers": [
+    {
+      "id": "123.456.789-01",
+      "name": "João Silva",
+      "date_of_birth": "1980-05-15",
+      "email": "joao.silva@email.com",
+      "cellphone": "+55123456789"
+    },
+    {
+      "id": "987.654.321-02",
+      "name": "Maria Oliveira",
+      "date_of_birth": "1992-08-20",
+      "email": "maria.oliveira@email.com",
+      "cellphone": "+5511987654321"
+    },
+    {
+      "id": "456.789.012-03",
+      "name": "Carlos Santos",
+      "date_of_birth": "1975-12-03",
+      "email": "carlos.santos@email.com",
+      "cellphone": "+5511123456789"
+    },
+    {
+      "id": "321.098.765-04",
+      "name": "Ana Pereira",
+      "date_of_birth": "1988-04-27",
+      "email": "ana.pereira@email.com",
+      "cellphone": "+5511987654321"
+    },
+    {
+      "id": "654.321.098-05",
+      "name": "Ricardo Oliveira",
+      "date_of_birth": "1995-10-10",
+      "email": "ricardo.oliveira@email.com",
+      "cellphone": "+5511123456789"
+    },
+    {
+      "id": "890.123.456-06",
+      "name": "Fernanda Lima",
+      "date_of_birth": "1983-07-18",
+      "email": "fernanda.lima@email.com",
+      "cellphone": "+5511987654321"
+    },
+    {
+      "id": "234.567.890-07",
+      "name": "Pedro Almeida",
+      "date_of_birth": "1970-01-05",
+      "email": "pedro.almeida@email.com",
+      "cellphone": "+5511123456789"
+    },
+    {
+      "id": "567.890.123-08",
+      "name": "Camila Santos",
+      "date_of_birth": "1990-06-22",
+      "email": "camila.santos@email.com",
+      "cellphone": "+5511987654321"
+    },
+    {
+      "id": "012.345.678-09",
+      "name": "Roberto Silva",
+      "date_of_birth": "1986-09-14",
+      "email": "roberto.silva@email.com",
+      "cellphone": "+5511123456789"
+    },
+    {
+      "id": "789.012.345-10",
+      "name": "Mariana Oliveira",
+      "date_of_birth": "1982-03-30",
+      "email": "mariana.oliveira@email.com",
+      "cellphone": "+5511987654321"
+    }
+  ]
+}
