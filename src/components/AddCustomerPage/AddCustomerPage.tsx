@@ -1,9 +1,10 @@
 import { Button, Card, Header, HeroLayout, Input } from '@/components';
-import { keepOnlyNumbers, maskCpf, maskCurrency, maskPhone } from '@/utils';
+import { maskCpf, maskPhone } from '@/utils';
 import { Routes } from '@/constants';
 import { isValid } from 'date-fns';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
+import { postCustomer } from '@/services';
 
 export const AddCustomerPage = () => {
   const router = useRouter();
@@ -36,9 +37,12 @@ export const AddCustomerPage = () => {
     return numInvalid === 0;
   }, [cellphone, customer, dateOfBirth, email, name]);
 
-  const handleSubmit = useCallback(() => {
-    router.push(Routes.Customers);
-  }, [router]);
+  const handleSubmit = useCallback(async () => {
+    const { isError } = await postCustomer({ name, id: customer, email, dateOfBirth, cellphone });
+    if (!isError) {
+      router.push(Routes.Customers);
+    }
+  }, [cellphone, customer, dateOfBirth, email, name, router]);
 
   return (
     <HeroLayout>

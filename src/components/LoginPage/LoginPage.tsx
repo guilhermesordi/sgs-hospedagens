@@ -4,6 +4,8 @@ import { Button, Input } from '@/components';
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Routes } from '@/constants';
+import { postLogin } from '@/services';
+import md5 from 'md5';
 
 export const LoginPage = () => {
   const router = useRouter();
@@ -11,10 +13,14 @@ export const LoginPage = () => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
 
-  const handleSubmit = useCallback(() => {
-    if (username === '123' && password === '123') {
-      sessionStorage.setItem('username', username);
-      router.push(Routes.Dashboard);
+  const handleSubmit = useCallback(async () => {
+    if (username && password) {
+      const { isError, data } = await postLogin({ username, password: md5(password) });
+
+      if (!isError) {
+        sessionStorage.setItem('user', data.user.id);
+        router.push(Routes.Dashboard);
+      }
     }
   }, [password, router, username]);
 

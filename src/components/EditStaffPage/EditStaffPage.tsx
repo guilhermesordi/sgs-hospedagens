@@ -1,13 +1,14 @@
 import { Button, Card, Header, HeroLayout, Input } from '@/components';
 import { Routes } from '@/constants';
+import { putStaff } from '@/services';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 
 export const EditStaffPage = () => {
   const router = useRouter();
 
-  const [name, setName] = useState('');
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState(router.query.name as string);
+  const [username, setUsername] = useState(router.query.username as string);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -30,9 +31,18 @@ export const EditStaffPage = () => {
     return numInvalid === 0;
   }, [confirmPassword, name, password, username]);
 
-  const handleSubmit = useCallback(() => {
-    router.push(Routes.Staff);
-  }, [router]);
+  const handleSubmit = useCallback(async () => {
+    const { isError } = await putStaff({
+      id: router.query.id as string,
+      active: Boolean(router.query.active as string),
+      name,
+      username,
+      password,
+    });
+    if (!isError) {
+      router.push(Routes.Staff);
+    }
+  }, [name, password, router, username]);
 
   return (
     <HeroLayout>

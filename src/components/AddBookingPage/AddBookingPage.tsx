@@ -4,6 +4,7 @@ import { Routes } from '@/constants';
 import { isValid } from 'date-fns';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
+import { postBooking } from '@/services';
 
 export const AddBookingPage = () => {
   const router = useRouter();
@@ -40,9 +41,19 @@ export const AddBookingPage = () => {
     return numInvalid === 0;
   }, [checkinDate, checkoutDate, customer, numPeople, room, totalAmount]);
 
-  const handleSubmit = useCallback(() => {
-    router.push(Routes.Bookings);
-  }, [router]);
+  const handleSubmit = useCallback(async () => {
+    const { isError } = await postBooking({
+      customer,
+      checkinDate,
+      checkoutDate,
+      numPeople,
+      room,
+      totalAmount: +keepOnlyNumbers(totalAmount) / 100,
+    });
+    if (!isError) {
+      router.push(Routes.Bookings);
+    }
+  }, [checkinDate, checkoutDate, customer, numPeople, room, router, totalAmount]);
 
   return (
     <HeroLayout>

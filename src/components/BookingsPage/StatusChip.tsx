@@ -1,15 +1,13 @@
 import { Chip } from '@/components';
-import { useCallback, useState } from 'react';
-
-type StatusKeys = 'COMPLETE' | 'ONGOING' | 'PENDING';
+import { StatusKeys } from '@/services';
+import { useCallback, useEffect, useState } from 'react';
 
 type StatusChipProps = {
   status: StatusKeys;
+  onChange: (value: StatusKeys) => void;
 };
 
-export const StatusChip = ({ status: statusProp }: StatusChipProps) => {
-  const [status, setStatus] = useState(statusProp);
-
+export const StatusChip = ({ status, onChange }: StatusChipProps) => {
   const captions: Record<StatusKeys, string> = {
     COMPLETE: 'Completo',
     ONGOING: 'Andamento',
@@ -30,13 +28,13 @@ export const StatusChip = ({ status: statusProp }: StatusChipProps) => {
   const handleUpdate = useCallback(() => {
     switch (status) {
       case 'PENDING':
-        setStatus('ONGOING');
+        onChange('ONGOING');
         break;
       case 'ONGOING':
-        setStatus('COMPLETE');
+        onChange('COMPLETE');
         break;
     }
-  }, [status]);
+  }, [onChange, status]);
 
   const hasNextStatus = status !== 'COMPLETE';
 

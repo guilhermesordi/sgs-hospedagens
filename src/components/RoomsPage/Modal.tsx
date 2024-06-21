@@ -1,5 +1,6 @@
-import { Button, Room } from '@/components';
+import { Button } from '@/components';
 import { Card } from '../Card';
+import { Room } from '@/services';
 
 type ModalProps = {
   item: Room | null;
@@ -24,7 +25,7 @@ export const Modal = ({ item, isOpen, handleClose }: ModalProps) => {
                 <div className="grow shrink basis-0 self-stretch">
                   <div>
                     <span className="text-dark text-base font-medium leading-normal">N° banheiros:</span>
-                    <span className="text-dark text-base font-normal leading-normal"> {item.numBathrooms}</span>
+                    <span className="text-dark text-base font-normal leading-normal"> {item.num_bathrooms}</span>
                   </div>
                   <div>
                     <span className="text-dark text-base font-medium leading-normal">Lotação máxima:</span>
