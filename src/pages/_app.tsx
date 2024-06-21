@@ -6,6 +6,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { Routes } from '@/constants';
+import { AuthContextProvider } from '@/hooks';
 
 const roboto = Roboto({
   weight: ['400', '500', '700', '900'],
@@ -29,7 +30,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <title>SGS Hospedagens</title>
       </Head>
       <Container>
-        <Component {...pageProps} />
+        <AuthContextProvider>
+          <Component {...pageProps} />
+        </AuthContextProvider>
       </Container>
     </main>
   );

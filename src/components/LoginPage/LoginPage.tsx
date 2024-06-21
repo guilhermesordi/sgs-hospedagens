@@ -5,10 +5,12 @@ import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Routes } from '@/constants';
 import { postLogin } from '@/services';
+import { useAuthContext } from '@/hooks';
 import md5 from 'md5';
 
 export const LoginPage = () => {
   const router = useRouter();
+  const { setUser } = useAuthContext();
 
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -18,11 +20,11 @@ export const LoginPage = () => {
       const { isError, data } = await postLogin({ username, password: md5(password) });
 
       if (!isError) {
-        sessionStorage.setItem('user', data.user.id);
+        setUser(data.user);
         router.push(Routes.Dashboard);
       }
     }
-  }, [password, router, username]);
+  }, [password, router, setUser, username]);
 
   return (
     <S.Container>

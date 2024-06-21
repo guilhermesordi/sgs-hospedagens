@@ -1,5 +1,6 @@
 import { Button, Card, Header, HeroLayout, Table } from '@/components';
 import { Routes } from '@/constants';
+import { useAuthContext } from '@/hooks';
 import { Staff, getStaff, putStaff } from '@/services';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,6 +8,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 export const StaffPage = () => {
   const [tableValues, setTableValues] = useState<Staff[]>();
+  const { isMaster } = useAuthContext();
 
   const getInitialData = useCallback(async () => {
     const { data, isError } = await getStaff();
@@ -17,8 +19,10 @@ export const StaffPage = () => {
   }, []);
 
   useEffect(() => {
-    getInitialData();
-  }, [getInitialData]);
+    if (isMaster) {
+      getInitialData();
+    }
+  }, [getInitialData, isMaster]);
 
   const router = useRouter();
 
