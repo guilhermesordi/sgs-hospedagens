@@ -15,13 +15,13 @@ export const EditStaffPage = () => {
   const getIsValid = useCallback(() => {
     let numInvalid = 4;
 
-    if (name.trim().length > 0) {
+    if (name?.trim().length > 0) {
       numInvalid--;
     }
-    if (username.trim().length > 0) {
+    if (username?.trim().length > 0) {
       numInvalid--;
     }
-    if (password.trim().length > 0) {
+    if (password?.trim().length > 0) {
       numInvalid--;
     }
     if (password === confirmPassword) {
