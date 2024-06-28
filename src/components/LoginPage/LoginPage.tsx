@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import * as S from './LoginPage.styles';
 import { Button, Input } from '@/components';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Routes } from '@/constants';
 import { postLogin } from '@/services';
@@ -14,6 +14,7 @@ export const LoginPage = () => {
 
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
+  const [toast, setToast] = useState<string>('');
 
   const handleSubmit = useCallback(async () => {
     if (username && password) {
@@ -22,12 +23,26 @@ export const LoginPage = () => {
       if (!isError) {
         setUser(data.user);
         router.push(Routes.Dashboard);
+      } else {
+        setToast('Usuário inválido!');
       }
+    } else {
+      setToast('Preencha os campos corretamente!');
     }
   }, [password, router, setUser, username]);
 
+  useEffect(() => {
+    setToast('');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [username && password]);
+
   return (
     <S.Container>
+      {toast.length > 0 && (
+        <div className="animate-pulse fixed right-20 top-10 w-[300px] bg-red-500 font-medium text-white h-10 flex items-center px-4">
+          {toast}
+        </div>
+      )}
       <div className="w-[60%] h-full position bg-[url('/images/login-banner.png')] bg-center bg-no-repeat bg-cover flex items-center justify-center">
         <Image src={'/images/logo-400x400.png'} width={481} height={396} alt={''} />
       </div>
