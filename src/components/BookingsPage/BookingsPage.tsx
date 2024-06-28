@@ -3,64 +3,47 @@ import { Routes } from '@/constants';
 import { format } from 'date-fns';
 import { StatusChip } from './StatusChip';
 import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { Booking, StatusKeys, getBookings, putBooking } from '@/services';
 
 export const BookingsPage = () => {
-  const mockTable = [
-    {
-      customer: '123.456.789-01',
-      room: 2,
-      numPeople: 2,
-      checkinDate: '2023-01-15',
-      checkoutDate: '2023-01-20',
-      status: 'COMPLETE',
-      totalAmount: 900,
+  const [tableValues, setTableValues] = useState<Booking[]>();
+
+  const getInitialData = useCallback(async () => {
+    const { data, isError } = await getBookings();
+
+    if (!isError) {
+      setTableValues(data ?? []);
+    }
+  }, []);
+
+  useEffect(() => {
+    getInitialData();
+  }, [getInitialData]);
+
+  const handleUpdateStatus = useCallback(
+    async (item: Booking, index: number, status: StatusKeys) => {
+      const booking = {
+        id: item.id,
+        status: status,
+        numPeople: item.num_people,
+        checkinDate: item.checkin_date,
+        checkoutDate: item.checkout_date,
+        totalAmount: item.total_amount,
+        customer: item.customer,
+        room: item.room,
+      };
+
+      const { isError } = await putBooking(booking);
+
+      if (!isError) {
+        let arr = JSON.parse(JSON.stringify(tableValues)) as Booking[];
+        arr[index] = { ...arr[index], status };
+        setTableValues(arr);
+      }
     },
-    {
-      customer: '789.012.345-10',
-      room: 3,
-      numPeople: 7,
-      checkinDate: '2023-02-10',
-      checkoutDate: '2023-02-20',
-      status: 'COMPLETE',
-      totalAmount: 3300,
-    },
-    {
-      customer: '567.890.123-08',
-      room: 1,
-      numPeople: 2,
-      checkinDate: '2023-03-23',
-      checkoutDate: '2023-03-25',
-      status: 'ONGOING',
-      totalAmount: 400,
-    },
-    {
-      customer: '321.098.765-04',
-      room: 1,
-      numPeople: 3,
-      checkinDate: '2023-04-12',
-      checkoutDate: '2023-04-18',
-      status: 'PENDING',
-      totalAmount: 1200,
-    },
-    {
-      customer: '456.789.012-03',
-      room: 5,
-      numPeople: 1,
-      checkinDate: '2023-05-23',
-      checkoutDate: '2023-05-27',
-      status: 'PENDING',
-      totalAmount: 400,
-    },
-    {
-      customer: '100.000.000-11',
-      room: 1,
-      numPeople: 2,
-      checkinDate: '2023-11-21',
-      checkoutDate: '2023-11-30',
-      status: 'PENDING',
-      totalAmount: 1000,
-    },
-  ];
+    [tableValues],
+  );
 
   const router = useRouter();
 
@@ -85,19 +68,19 @@ export const BookingsPage = () => {
               <Table.HeadItem>Valor</Table.HeadItem>
             </Table.Head>
             <Table.Body>
-              {mockTable.map((item, index) => (
+              {tableValues?.map((item, index) => (
                 <Table.Row key={index}>
                   <Table.RowItem>{item.customer}</Table.RowItem>
                   <Table.RowItem>{item.room}</Table.RowItem>
                   <Table.RowItem>
-                    {format(item.checkinDate, 'dd/MM/yyyy')} - {format(item.checkoutDate, 'dd/MM/yyyy')}
+                    {format(item.checkin_date, 'dd/MM/yyyy')} - {format(item.checkout_date, 'dd/MM/yyyy')}
                   </Table.RowItem>
-                  <Table.RowItem>{item.numPeople}</Table.RowItem>
+                  <Table.RowItem>{item.num_people}</Table.RowItem>
                   <Table.RowItem>
-                    <StatusChip status={item.status as any /* TODO: input a type */} />
+                    <StatusChip status={item.status} onChange={(status) => handleUpdateStatus(item, index, status)} />
                   </Table.RowItem>
                   <Table.RowItem>
-                    {item.totalAmount.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
+                    {item.total_amount.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}
                   </Table.RowItem>
                 </Table.Row>
               ))}

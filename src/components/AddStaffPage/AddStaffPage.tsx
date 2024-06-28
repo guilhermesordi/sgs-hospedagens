@@ -1,5 +1,6 @@
 import { Button, Card, Header, HeroLayout, Input } from '@/components';
 import { Routes } from '@/constants';
+import { postStaff } from '@/services';
 import { useRouter } from 'next/router';
 import { useCallback, useState } from 'react';
 
@@ -30,9 +31,12 @@ export const AddStaffPage = () => {
     return numInvalid === 0;
   }, [confirmPassword, name, password, username]);
 
-  const handleSubmit = useCallback(() => {
-    router.push(Routes.Staff);
-  }, [router]);
+  const handleSubmit = useCallback(async () => {
+    const { isError } = await postStaff({ name, username, password });
+    if (!isError) {
+      router.push(Routes.Staff);
+    }
+  }, [name, password, router, username]);
 
   return (
     <HeroLayout>

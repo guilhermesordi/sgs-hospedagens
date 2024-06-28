@@ -1,4 +1,5 @@
 import { Routes } from '@/constants';
+import { useAuthContext } from '@/hooks';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -29,6 +30,8 @@ const Item = ({ icon, label, to, activates }: ItemProps) => {
 };
 
 export const Sidebar = () => {
+  const { isMaster, setUser } = useAuthContext();
+
   return (
     <div className="w-[280px] h-full px-[25px] pt-[50px] pb-[25px] left-0 top-0 fixed bg-dark flex-col justify-start items-center gap-10 inline-flex">
       <Image width={105} height={86} src="/images/logo-100x100.png" alt="" />
@@ -48,15 +51,17 @@ export const Sidebar = () => {
             activates={[Routes.Customers, Routes.AddCustomer]}
           />
           <Item icon={'door_front'} label={'Quartos'} to={Routes.Rooms} activates={[Routes.Rooms]} />
-          <Item
-            icon={'admin_panel_settings'}
-            label={'Staff'}
-            to={Routes.Staff}
-            activates={[Routes.Staff, Routes.AddStaff, Routes.EditStaff]}
-          />
+          {isMaster && (
+            <Item
+              icon={'admin_panel_settings'}
+              label={'Staff'}
+              to={Routes.Staff}
+              activates={[Routes.Staff, Routes.AddStaff, Routes.EditStaff]}
+            />
+          )}
         </div>
       </div>
-      <button onClick={() => sessionStorage.clear()}>
+      <button onClick={() => setUser(null)}>
         <Item icon={'logout'} label={'Sair'} to={Routes.Login} activates={[Routes.Login]} />
       </button>
     </div>
