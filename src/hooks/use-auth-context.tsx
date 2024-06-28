@@ -16,6 +16,7 @@ type AuthContextProviderProps = React.PropsWithChildren<{}>;
 const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const router = useRouter();
   const [user, setUser] = useState<Staff | null>(null);
+  const [masterRoutes] = useState([Routes.Staff, Routes.AddStaff, Routes.EditStaff]);
 
   const getIsMaster = useCallback(() => {
     if (user !== null) {
@@ -26,16 +27,15 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   }, [user]);
 
   useEffect(() => {
-    const masterRoutes = [Routes.Staff, Routes.AddStaff, Routes.EditStaff];
     if (user === null && router.pathname !== Routes.Login) {
       router.push(Routes.Login);
     } else if (
       (router.pathname === Routes.Login && user !== null) ||
-      masterRoutes.includes(router.pathname as Routes)
+      (!getIsMaster() && masterRoutes.includes(router.pathname as Routes))
     ) {
       router.push(Routes.Dashboard);
     }
-  }, [router, user]);
+  }, [getIsMaster, masterRoutes, router, user]);
 
   const value = useMemo(() => ({ user, setUser, isMaster: getIsMaster() }), [getIsMaster, user]);
 
