@@ -10,3 +10,4 @@ export * from './getCustomers';
 export * from './getRooms';
 export * from './getStaff';
 export * from './getBookings';
+export * from './getDashboard';
